@@ -12,6 +12,7 @@ public class PlayerController : MonoBehaviour
     [Header("ジャンプする長さ")]public float jumpLimitTime;
     [Header("接地判定")] public GroundCheck ground;
     [Header("天井判定")] public GroundCheck head;
+    [Header("ステルス判定")] public HideCheck hide;
     [Header("ダッシュの速さ表現")] public AnimationCurve dashCurve;
     [Header("ジャンプの速さ表現")] public AnimationCurve jumpCurve;
     #endregion
@@ -24,6 +25,7 @@ public class PlayerController : MonoBehaviour
     private bool isJump = false;
     private bool isGround = false;
     private bool isHead = false;
+    private bool isHide = false;
     private float jumpPos = 0.0f;
     private float dashTime, jumpTime;
     private float beforeKey;
@@ -41,6 +43,8 @@ public class PlayerController : MonoBehaviour
         //接地判定を得る
         isGround = ground.IsGround();
         isHead = head.IsGround();
+        //ステルス判定を得る
+        isHide = hide.IsHide();
         //各種座標軸の速度を求める
         float xSpeed = GetXSpeed();
         float ySpeed = GetYSpeed();
@@ -145,5 +149,6 @@ public class PlayerController : MonoBehaviour
         anim.SetBool("jump", isJump);
         anim.SetBool("ground", isGround);
         anim.SetBool("run", isRun);
+        anim.SetBool("hide", isHide);
     }
 }
